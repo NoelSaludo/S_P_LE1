@@ -138,6 +138,117 @@ def adminLogIn():
         except ValueError as e:
             print(e)
         break
+
+
+def UpdateDetails():
+
+    DisplayGameLib()
+
+    while True:
+        try:
+            i = int(input(f"Enter Choice from 1 to {len(gameLib)}"))
+            if not i: 
+                return
+            
+            if i <= 0 or i > len(gameLib):
+                print("Enter a proper input")
+                continue
+            i -= 1
+
+            game = list(gameLib)[i]
+            
+            y = input("Input the new cost: ")
+
+            z = input("Input the new count of copies: ")
+
+
+            if not y:
+                y = gameLib[game]["cost"]
+
+            if not z:
+                z = gameLib[game]["copies"]
+
+            gameLib[game]["cost"] = y
+            gameLib[game]["copies"] = z
+
+        except ValueError as e:
+            print(e)
+        except KeyError as e:
+            print(e)
+        break
+
+
+def AddGame():
+
+    DisplayGameLib()
+
+    while True:
+        try:
+           x = input("Input the name of the game: ")
+           if not x:
+                return
+           if x in gameLib:
+               print("Game already exists.")
+               continue
+
+           y = float(input("Input the cost of the game: "))
+
+           if y <= 0:
+               print("Invalid value. Please input a nonzero positive number (we need to make money).")
+               continue
+
+           z = int(input("Input the amount of the copies of the game: "))
+
+           if z <= 0:
+               print("Invalid value. Please input a nonzero positive number.")
+               continue
+           
+
+           gameLib[x] = {"cost" : y, "copies": z}
+
+        
+
+        except ValueError as e:
+            print(e)
+
+
+        break
+
+
+def RemoveGame():
+   
+   DisplayGameLib()
+
+
+   while True:
+        try:
+            i = int(input(f"Enter Choice from 1 to {len(gameLib)}"))
+            if not i: 
+                return
+            
+            if i <= 0 or i > len(gameLib):
+                print("Enter a proper input")
+                continue
+            i -= 1
+
+            game = list(gameLib)[i]
+
+            del gameLib[game]
+
+            
+            
+
+        except ValueError as e:
+            print(e)
+        except KeyError as e:
+            print(e)
+        break
+
+
+
+
+
+
 def main():
     while True:
         try:
@@ -186,6 +297,31 @@ def main():
                     pass
             while adLogIn:
                 print("Hello Admin")
+                print("1. Update Game Details \n2. Add a game\n3. Remove a Game\n4. Log-Out")
+                choice = int(input("Input your choice: "))
+
+                if choice < 1 or choice > 5:
+                    print("Provide a valid input")
+                    continue
+                
+                if choice == 1:
+                    UpdateDetails()
+
+                if choice == 2:
+                    AddGame()
+
+                if choice == 3:
+                    RemoveGame()
+
+                if choice == 4:
+                    LogOut()
+
+
+
+
+
+
+
         except ValueError as e:
             print(e) 
     pass
